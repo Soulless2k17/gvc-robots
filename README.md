@@ -1,7 +1,5 @@
 # gvc-robots
 
-robot test
-
 So here's a small summary
 
 1. Input is ready to receive data according ONLY Syntax described in brief. I'd assume in real world info would come via an API and would adjust accordingly. That said I have made a function to clean up empty lines.
