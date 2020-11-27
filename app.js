@@ -106,11 +106,49 @@ function init() {
                                 console.log("Danger Zone Check started");
                                 if (robots[i].Lost !== "LOST") {
                                     console.log("moving forward");
+                                    dangerZoneCheck(i);
                                 }
                             }
                         }
                     }
-                }
+
+                    function dangerZoneCheck(x) {
+                      console.log("dangercheck:" + x);
+                      if ((robots[x].coordX + 1 > roomSize[0] && robots[x].orientation === "E") || (robots[x].coordX - 1 < 0 && robots[x].orientation === "W")) {
+                          console.log("Robot " + x + "is about to fall off the X axis : " + robots[x].coordX + " facing " + robots[x].orientation + " Or is greater than X roomsize: " + roomSize[0] + "or below 0")
+                          robots[x]["Lost"] = "LOST";
+                          dangerZone.push({
+                              "coordX": robots[x].coordX,
+                              "coordY": robots[x].coordY
+                          });
+                      } else {
+                          if (robots[x].orientation === "E") {
+                              robots[x].coordX = robots[x].coordX + 1;
+                          } else if (robots[x].orientation === "W") {
+                              robots[x].coordX = robots[x].coordX - 1;
+                          }
+                      }
+      
+                      if ((robots[x].coordY + 1 > roomSize[1] && robots[x].orientation === "N") || (robots[x].coordY - 1 < 0 && robots[x].orientation === "S")) {
+                          console.log("Robot " + x + "is about to fall off the Y axis : " + robots[x].coordY + " facing " + robots[x].orientation + " Or is greater than Y roomsize: " + roomSize[1] + "or below 0");
+                          robots[x]["Lost"] = "LOST";
+                          console.log("Robot " + x + "is LOST");
+                          console.log(robots)
+                          dangerZone.push({
+                              "coordX": robots[x].coordX,
+                              "coordY": robots[x].coordY
+                          });
+                      } else {
+                          if (robots[x].orientation === "N") {
+                              robots[x].coordY = robots[x].coordY + 1;
+      
+                          } else if (robots[x].orientation === "S") {
+                              robots[x].coordY = robots[x].coordY - 1;
+                          }
+                      }
+                      console.log(robots);               
+                  }
+               }
             }
         }      
     }  
