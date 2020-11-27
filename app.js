@@ -1,15 +1,15 @@
-let lines = [];
-let roomSize = [];
-let robots = [];
-let dangerZone = [{
-    coordX: "",
-    coordY: ""
-}];
-let inDanger;
-
 document.querySelector(".runBtn").addEventListener("click", init);
 
 function init() {
+    let lines = [];
+    let roomSize = [];
+    let robots = [];
+    let dangerZone = [{
+        coordX: "",
+        coordY: ""
+    }];
+    let inDanger;
+
     function textCleanup() {
         var text = document.querySelector('.input').value;
         text = text.replace(/(?:(?:\r\n|\r|\n)\s*){2}/gm, "");
