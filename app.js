@@ -1,3 +1,4 @@
+let lines = [];
 let roomSize = [];
 let robots = [];
 
