@@ -17,7 +17,26 @@ function init() {
                 lines.push("");
             }
         }
-        console.log(lines);     
+        console.log(lines);        
+        function createScene()    
     }
-  
+   
+   function createScene() {
+        for (var i = 0; i < lines.length; i++) {
+            if (i === 0) {
+                roomSize.push(lines[i][0]);
+                roomSize.push(lines[i][1]);
+            } else {
+                if (i % 2 == 0) {
+                    robots[robots.length - 1]["orders"] = lines[i];
+                } else {
+                    robots.push({
+                        "coordX": parseInt(lines[i][0]),
+                        "coordY": parseInt(lines[i][1]),
+                        "orientation": lines[i][2]
+                    });
+                }
+            }
+        }   
+    }  
 }  
