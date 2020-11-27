@@ -1,6 +1,11 @@
 let lines = [];
 let roomSize = [];
 let robots = [];
+let dangerZone = [{
+    coordX: "",
+    coordY: ""
+}];
+let inDanger;
 
 document.querySelector(".runBtn").addEventListener("click", init);
 
@@ -16,10 +21,9 @@ function init() {
             } else {
                 lines.push("");
             }
-        }
-        console.log(lines);        
-        function createScene()    
-    }
+        }  
+      console.log(lines);      
+   }
    
    function createScene() {
         for (var i = 0; i < lines.length; i++) {
@@ -78,8 +82,35 @@ function init() {
                         robots[i].orientation = "S";
                     }
                 } else if (turn === "F") {
-                  console.log("moving forward");
-                } 
+                   console.log(dangerZone);
+                   for (var k = 0; k < dangerZone.length; k++) {
+                        console.log("checking DangerZone");
+
+                        if (robots[i].coordX === dangerZone[k].coordX && robots[i].coordY === dangerZone[k].coordY) {
+                            inDanger = "true";
+                        } else {
+                            inDanger = "false";
+                        }
+                        if (
+                            (inDanger === "true" && robots[i].orientation === "E" && robots[i].coordX + 1 > roomSize[0]) ||
+                            (inDanger === "true" && robots[i].orientation === "W" && robots[i].coordX - 1 < 0) ||
+                            (inDanger === "true" && robots[i].orientation === "N" && robots[i].coordY + 1 > roomSize[1]) ||
+                            (inDanger === "true" && robots[i].orientation === "S" && robots[i].coordY - 1 < 0)) {
+                            console.log("DANGER ZONE, Robot won't proceed that way")
+                            console.log("Robot " + i);
+                            console.log("InDanger=" + inDanger);
+                            console.log("Robot " + robots[i].coordX + "," + robots[i].coordY);
+                            console.log("DZ " + dangerZone[k].coordX + "," + dangerZone[k].coordY);
+                        } else {
+                            if (k === dangerZone.length - 1) {
+                                console.log("Danger Zone Check started");
+                                if (robots[i].Lost !== "LOST") {
+                                    console.log("moving forward");
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }      
     }  
