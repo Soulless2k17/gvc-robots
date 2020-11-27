@@ -37,6 +37,22 @@ function init() {
                     });
                 }
             }
-        }   
+        }
+        
+        createJourney();
+        
+        function createJourney() {
+            for (var i = 0; i < robots.length; i++) {
+                robotMoves(i);
+            }
+
+            function robotMoves(num) {
+                console.log("checking orders");
+                var orders = robots[num].orders;
+                for (var j = 0; j < orders.length; j++) {
+                    console.log(robots[num] + " = " + orders.length + " orders " + orders.charAt(j));
+                }
+            }
+        }      
     }  
 }  
