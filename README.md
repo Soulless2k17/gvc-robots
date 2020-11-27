@@ -1,22 +1,5 @@
 # gvc-robots
 
-Sample Input
-5 3
-1 1 E
-RFRFRFRF
-
-3 2 N
-FRRFLLFFRRFLL
-
-0 3 W
-LLFFFLFLFL
-
-Sample Output
-
-1 1 E
-3 3 N LOST
-2 3 S
-
 Summary:
 
 1. Input is ready to receive data according ONLY Syntax described in brief. I'd assume in real world info would come via an API and would adjust accordingly. That said I have made a function to clean up empty lines.
