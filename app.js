@@ -10,7 +10,7 @@ let inDanger;
 document.querySelector(".runBtn").addEventListener("click", init);
 
 function init() {
-   function textCleanup() {
+    function textCleanup() {
         var text = document.querySelector('.input').value;
         text = text.replace(/(?:(?:\r\n|\r|\n)\s*){2}/gm, "");
         document.querySelector('.input').value = text;
@@ -21,11 +21,12 @@ function init() {
             } else {
                 lines.push("");
             }
-        }  
-      console.log(lines);      
-   }
-   
-   function createScene() {
+        }
+        console.log(lines);
+        createScene();
+    }
+
+    function createScene() {
         for (var i = 0; i < lines.length; i++) {
             if (i === 0) {
                 roomSize.push(lines[i][0]);
@@ -42,9 +43,8 @@ function init() {
                 }
             }
         }
-        
         createJourney();
-        
+
         function createJourney() {
             for (var i = 0; i < robots.length; i++) {
                 robotMoves(i);
@@ -55,7 +55,12 @@ function init() {
                 var orders = robots[num].orders;
                 for (var j = 0; j < orders.length; j++) {
                     action(orders.charAt(j));
-                    console.log(robots[num] + " = " + orders.length + " orders " + orders.charAt(j));
+                    console.log(robots[num] + " = " + orders.length + " orders " + orders.charAt(j))
+                    if (j === orders.length-1) {
+                        if (robots[num].job !== "displayed") {
+                            robots[num]["job"] = "done";
+                        }
+                    } 
                 }
             }
 
@@ -82,8 +87,9 @@ function init() {
                         robots[i].orientation = "S";
                     }
                 } else if (turn === "F") {
-                   console.log(dangerZone);
-                   for (var k = 0; k < dangerZone.length; k++) {
+                    console.log("moving forward");
+                    console.log(dangerZone);
+                    for (var k = 0; k < dangerZone.length; k++) {
                         console.log("checking DangerZone");
 
                         if (robots[i].coordX === dangerZone[k].coordX && robots[i].coordY === dangerZone[k].coordY) {
@@ -105,51 +111,81 @@ function init() {
                             if (k === dangerZone.length - 1) {
                                 console.log("Danger Zone Check started");
                                 if (robots[i].Lost !== "LOST") {
-                                    console.log("moving forward");
                                     dangerZoneCheck(i);
                                 }
                             }
                         }
                     }
-
-                    function dangerZoneCheck(x) {
-                      console.log("dangercheck:" + x);
-                      if ((robots[x].coordX + 1 > roomSize[0] && robots[x].orientation === "E") || (robots[x].coordX - 1 < 0 && robots[x].orientation === "W")) {
-                          console.log("Robot " + x + "is about to fall off the X axis : " + robots[x].coordX + " facing " + robots[x].orientation + " Or is greater than X roomsize: " + roomSize[0] + "or below 0")
-                          robots[x]["Lost"] = "LOST";
-                          dangerZone.push({
-                              "coordX": robots[x].coordX,
-                              "coordY": robots[x].coordY
-                          });
-                      } else {
-                          if (robots[x].orientation === "E") {
-                              robots[x].coordX = robots[x].coordX + 1;
-                          } else if (robots[x].orientation === "W") {
-                              robots[x].coordX = robots[x].coordX - 1;
-                          }
-                      }
-      
-                      if ((robots[x].coordY + 1 > roomSize[1] && robots[x].orientation === "N") || (robots[x].coordY - 1 < 0 && robots[x].orientation === "S")) {
-                          console.log("Robot " + x + "is about to fall off the Y axis : " + robots[x].coordY + " facing " + robots[x].orientation + " Or is greater than Y roomsize: " + roomSize[1] + "or below 0");
-                          robots[x]["Lost"] = "LOST";
-                          console.log("Robot " + x + "is LOST");
-                          console.log(robots)
-                          dangerZone.push({
-                              "coordX": robots[x].coordX,
-                              "coordY": robots[x].coordY
-                          });
-                      } else {
-                          if (robots[x].orientation === "N") {
-                              robots[x].coordY = robots[x].coordY + 1;
-      
-                          } else if (robots[x].orientation === "S") {
-                              robots[x].coordY = robots[x].coordY - 1;
-                          }
-                      }
-                      console.log(robots);               
-                  }
-               }
+                }
+               populateOutput()
+               console.log(robots);
             }
-        }      
-    }  
-}  
+
+            function dangerZoneCheck(x) {
+                console.log("dangercheck:" + x);
+                if ((robots[x].coordX + 1 > roomSize[0] && robots[x].orientation === "E") || (robots[x].coordX - 1 < 0 && robots[x].orientation === "W")) {
+                    console.log("Robot " + x + "is about to fall off the X axis : " + robots[x].coordX + " facing " + robots[x].orientation + " Or is greater than X roomsize: " + roomSize[0] + "or below 0")
+                    robots[x]["Lost"] = "LOST";
+                    dangerZone.push({
+                        "coordX": robots[x].coordX,
+                        "coordY": robots[x].coordY
+                    });
+                } else {
+                    if (robots[x].orientation === "E") {
+                        robots[x].coordX = robots[x].coordX + 1;
+                    } else if (robots[x].orientation === "W") {
+                        robots[x].coordX = robots[x].coordX - 1;
+                    }
+                }
+
+                if ((robots[x].coordY + 1 > roomSize[1] && robots[x].orientation === "N") || (robots[x].coordY - 1 < 0 && robots[x].orientation === "S")) {
+                    console.log("Robot " + x + "is about to fall off the Y axis : " + robots[x].coordY + " facing " + robots[x].orientation + " Or is greater than Y roomsize: " + roomSize[1] + "or below 0");
+                    robots[x]["Lost"] = "LOST";
+                    console.log("Robot " + x + "is LOST");
+                    console.log(robots)
+                    dangerZone.push({
+                        "coordX": robots[x].coordX,
+                        "coordY": robots[x].coordY
+                    });
+                } else {
+                    if (robots[x].orientation === "N") {
+                        robots[x].coordY = robots[x].coordY + 1;
+
+                    } else if (robots[x].orientation === "S") {
+                        robots[x].coordY = robots[x].coordY - 1;
+                    }
+                }
+                console.log(robots);               
+            }
+
+            function populateOutput() {
+                let message;
+                var trigger = setInterval(output, 10);
+                let counter = 0;
+                let lost = "";
+                document.getElementById("output").innerHTML = "";
+                function output() {
+                  for (var i = 0; i < robots.length; i++) {
+                    if (robots[i].job === "done") {
+                        robots[i].job = "displayed";
+                        counter++
+                         if (robots[i].Lost === "LOST") {
+                           lost = " " + robots[i].Lost;
+                         }
+                         else { lost = "" }
+                        message = '<p>' + robots[i].coordX + " " + robots[i].coordY + " " + robots[i].orientation + lost + '</p>';
+                        document.getElementById("output").innerHTML += message;
+                    }
+                    if (counter === robots.length ){
+                      clearInterval(trigger);
+                    }
+                }
+                } 
+            }
+
+        }
+    }
+
+    textCleanup()
+    
+}
