@@ -1,6 +1,23 @@
 # gvc-robots
 
-So here's a small summary
+Sample Input
+5 3
+1 1 E
+RFRFRFRF
+
+3 2 N
+FRRFLLFFRRFLL
+
+0 3 W
+LLFFFLFLFL
+
+Sample Output
+
+1 1 E
+3 3 N LOST
+2 3 S
+
+Summary:
 
 1. Input is ready to receive data according ONLY Syntax described in brief. I'd assume in real world info would come via an API and would adjust accordingly. That said I have made a function to clean up empty lines.
 2. Upon running the input data via the "run" button the room is created using the top value, beyond that every odd and even line is collected and creates a robot.
@@ -9,7 +26,7 @@ So here's a small summary
 5. If robot exits room they create a dangerZone at the area they departed from.
 6. Robots will no longer be able to leave map from that marked Dangerzone, though may freely pass through it.
 
-Some notables during my build.
+Notables:
 
 I tried to stay within the 2-3 hour window so didn't want to go too fancy. 2-3 hours is not long enough to do a complex dev (at least in my opinion). Good enough to get a prototype out that can be improved upon later at least.
 
