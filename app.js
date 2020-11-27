@@ -50,8 +50,36 @@ function init() {
                 console.log("checking orders");
                 var orders = robots[num].orders;
                 for (var j = 0; j < orders.length; j++) {
+                    action(orders.charAt(j));
                     console.log(robots[num] + " = " + orders.length + " orders " + orders.charAt(j));
                 }
+            }
+
+            function action(turn) {
+                if (turn === "L") {
+                    if (robots[i].orientation === "N") {
+                        robots[i].orientation = "W";
+                    } else if (robots[i].orientation === "S") {
+                        robots[i].orientation = "E";
+                    } else if (robots[i].orientation === "W") {
+                        robots[i].orientation = "S";
+                    } else if (robots[i].orientation === "E") {
+                        robots[i].orientation = "N";
+                    }
+                    console.log(robots);
+                } else if (turn === "R") {
+                    if (robots[i].orientation === "N") {
+                        robots[i].orientation = "E";
+                    } else if (robots[i].orientation === "S") {
+                        robots[i].orientation = "W";
+                    } else if (robots[i].orientation === "W") {
+                        robots[i].orientation = "N";
+                    } else if (robots[i].orientation === "E") {
+                        robots[i].orientation = "S";
+                    }
+                } else if (turn === "F") {
+                  console.log("moving forward");
+                } 
             }
         }      
     }  
