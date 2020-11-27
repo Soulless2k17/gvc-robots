@@ -11,7 +11,7 @@ Summary:
 
 Notables:
 
-I tried to stay within the 2-3 hour window so didn't want to go too fancy. 2-3 hours is not long enough to do a complex dev (at least in my opinion). Good enough to get a prototype out that can be improved upon later at least.
+I tried to stay within the 3 hour window so didn't want to go too fancy. 2-3 hours is not long enough to do a complex dev (at least in my opinion). Good enough to get a prototype out that can be improved upon later at least.
 
 With this is in mind I went with vanilla JS, my strength. Though it was only at the end of the build I realized that the syncronous nature of my code so far would cause issues eventually. Had I had more time I would perhaps rewrite using more arrays ratehr than objects to easily utilize ES6 promises, async and await.
 
