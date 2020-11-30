@@ -14,7 +14,7 @@ function init() {
   
     function textCleanup() {
         var text = document.querySelector('.input').value;
-        text = text.replace(/(?:(?:\r\n|\r|\n)\s*){2}/gm, "");
+        text = text.replace(/^\s*[\r\n]/gm, '');    
         document.querySelector('.input').value = text;
         for (var i = 0; i < document.querySelector('.input').value.split(/\n/).length; i++) {          
             let line = document.querySelector('.input').value.split(/\n/)[i];
